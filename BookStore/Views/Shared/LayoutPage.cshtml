@@ -1,0 +1,88 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BookStore.data
+@inject SignInManager<ApplicationUser> signIn
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LayoutPage</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/twitter-bootstrap/js/bootstrap.js"></script>
+    <link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+    @RenderSection("Head",false)
+</head>
+<body>
+
+    <div id="viewport">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <header>
+                <a href="#">Book Store</a>
+            </header>
+            @if (signIn.IsSignedIn(User))
+            {
+            <ul class="nav">
+                <li>
+                    <a asp-controller="Category" asp-action="Index">
+                        <i class="zmdi zmdi-view-dashboard"></i> Categories Section
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Author" asp-action="Index">
+                        <i class="zmdi zmdi-link"></i> Authors Section
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Book" asp-action="Index">
+                        <i class="zmdi zmdi-widgets"></i> Books Section
+                    </a>
+                </li>
+            </ul>
+            }
+        <ul class="nav">
+            
+            <li>
+                <a asp-controller="Account" asp-action="Index1" class="glyphicon glyphicon-log-in">
+                    <i class="zmdi zmdi-widgets"></i> SignIn
+                </a>
+            </li>
+           
+            <li>
+                <a asp-controller="Account" asp-action="Index" class="glyphicon glyphicon-user">
+                    <i class="zmdi zmdi-widgets"></i> SignUp
+                </a>
+            </li>
+            
+        </ul>
+        </div>
+        <!-- Content -->
+        <div id="content">
+            <nav class="navbar navbar-default" style="margin-bottom:0px">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">
+                                <i class="zmdi zmdi-notifications text-danger"></i>
+                            </a>
+                        </li>
+                        @if (signIn.IsSignedIn(User))
+                        {
+                        <li><a asp-controller="Account" asp-action="LogOut" class="glyphicon glyphicon-log-out">Logout</a><span>@User.Identity.Name</span></li>
+                        }
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                @RenderSection("Body")
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

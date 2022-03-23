@@ -1,0 +1,109 @@
+﻿@using BookStore.Models
+@model VMSignUp
+@{
+    Layout = "~/Views/Shared/LayoutPage.cshtml";
+}
+
+
+
+@section Head{
+
+    <link href="~/css/StyleSheet1.css" rel="stylesheet" />
+    <script src="~/js/JavaScript.js"></script>
+    <link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/twitter-bootstrap/js/bootstrap.js"></script>
+
+}
+
+@section Body{
+
+    <form class="well form-horizontal" method="post" id="contact_form" style="margin-top:20px">
+        <div class="row" style="margin-top:15px">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend><h2><b>Sign Up</b></h2></legend><br>
+
+                <!-- Text input-->
+                <span style="color:red">@ViewData["Error"]</span>
+                <div class="form-group">
+
+                    <label class="col-md-4 control-label">Name</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" placeholder="First Name" class="form-control" asp-for="signUp.Name">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">UserName</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" placeholder="UserName" class="form-control" asp-for="signUp.UserName">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Text input-->
+                <!-- Text input-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Password</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="password" placeholder="Password" class="form-control" asp-for="signUp.Password">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Role</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <select class="form-control selectpicker" asp-for="signUp.Role_Id" asp-items='new SelectList(Model.liRole,"Id","Name")'>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">E-Mail</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input type="text" placeholder="E-Mail Address" class="form-control" asp-for="signUp.Email">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Text input-->
+                <!-- Select Basic -->
+                <!-- Success message -->
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-4">
+                        <input type="submit" value="Create Account" class="btn btn-warning" asp-action="SignUp" />
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+    </form>
+
+
+}
+

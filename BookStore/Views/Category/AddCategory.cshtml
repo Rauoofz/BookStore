@@ -1,0 +1,139 @@
+﻿@using BookStore.data
+@using BookStore.Models
+@model VMCategory
+@{
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Views/Shared/LayoutPage.cshtml";
+}
+
+@section Head{ 
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#Edit1").click(function () {
+
+                var authid = $(this).parent().parent().find("#TD").text()
+                debugger;
+                $.ajax({
+                    type: 'get',
+                    url: '/BookStore/Category/Edit?Id=' + authid,
+                    success: function (data) {
+                        debugger
+                        $("#cate_CategoryCode").val(data.categoryCode)
+                        $("#cate_CategoryName").val(data.categoryName)
+                        $("#cate_ID").val(data.id)
+                        //$("#Auth.Nationality_ID").val();
+                        if (data.id > 0) {
+
+                            $("#up").show()
+                            $("#save").hide()
+                        }
+
+
+                    },
+                    error: function () {
+                        alert("error")
+                    }
+
+                })
+                $("#exampleModal").modal('show');
+            });
+
+        });
+
+    </script>
+
+}
+
+@section Body{
+    <form method="post">
+        <input type="hidden" asp-for="cate.ID" />
+        <div class="row">
+            <div class="col-lg-12" style="background-color:gainsboro">
+                <h1>Categories Section</h1>
+            </div>
+        </div>
+        <div class="row" style="margin-top:15px">
+            <div class="col-lg-5">
+                <div>
+                    <input type="button" value="New Category" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" />
+                </div>
+                <div class="modal" id="exampleModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Category</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Category Code</label>
+                                    <input type="text" class="form-control" asp-for="cate.CategoryCode" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Category Name</label>
+                                    <input type="text" class="form-control" asp-for="cate.CategoryName" />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <div style="float: right">
+                                    <div style="float: left; margin-right: 13px">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                    <div style="float:left">
+                                        <input type="submit" class="btn btn-primary" asp-action="Save" value="Save" style="display:block" id="save" />
+                                    </div>
+                                    <div style="float:left">
+                                        <input type="submit" class="btn btn-primary" asp-action="Update" value="Update" style="display:none" id="up" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px">
+
+            <div class="col-lg-offset-0">
+
+                <table class="table table-bordered">
+
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Category Code</th>
+                            <th>Category Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (Category cat in Model.licate)
+                        {
+                            <tr>
+                                <td id="TD">@cat.ID</td>
+                                <td>@cat.CategoryCode</td>
+                                <td>@cat.CategoryName</td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-Id="@cat.ID" class="glyphicon glyphicon-remove">Delete</a>
+                                    <a id="Edit1" class="glyphicon glyphicon-edit">Edit</a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </form>
+}
